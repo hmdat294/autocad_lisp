@@ -1,6 +1,5 @@
-(defun c:SDIMEN (/ ss i ent obj val total extra inspt txt str h)
 
-  (vl-load-com)
+(defun c:SDE (/ ss i ent obj val total extra inspt txt str h)
 
   ;; chiều cao text
   (setq h 100.0)

@@ -1,6 +1,4 @@
 
-(vl-load-com)
-
 (defun c:FAST_PRINT
   (/ *error* acad doc lay plot
      blocks ent data obj mn mx

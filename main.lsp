@@ -1,10 +1,15 @@
 
 (vl-load-com)
 
-(setq folder "C:\\Users\\KhangLe\\OneDrive\\MinhDat\\custom_cad\\autocad_lisp\\")
+(setq folder (vl-filename-directory (findfile "main.lsp")))
 
-(load (strcat folder "_acreage.lsp"))
-(load (strcat folder "_fast_print.lsp"))
-(load (strcat folder "_operation.lsp"))
+(setq arr_file_name '("_acreage.lsp" "_fast_print.lsp" "_operation.lsp"))
+
+(foreach f arr_file_name
+  (setq path (strcat folder "\\" f))
+  (if (findfile path)
+    (load path)
+  )
+)
 
 (princ)

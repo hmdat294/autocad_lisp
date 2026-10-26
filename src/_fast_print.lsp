@@ -6,7 +6,7 @@
      folder prefix outpdf tempdir pdfs pdfpath
      printer media ctb tool shell cmd exitcode
      idx count result oldecho oldplot
-     oldfile page-name)
+     oldfile page-name paperChoice)
 
   ;; Khoi phuc bien he thong khi loi
   (defun *error* (msg)
@@ -68,6 +68,26 @@
 
     (progn
 
+      ;; Chon kho giay va huong in
+      (initget "A3N A3D A4N A4D")
+      (setq paperChoice
+        (getkword
+          "\nChon kho giay [A3N/A3D/A4N/A4D] <A3N>: "))
+      (if (null paperChoice)
+        (setq paperChoice "A3N"))
+
+      (setq media
+        (cond
+          ((= paperChoice "A3N")
+           "ISO_full_bleed_A3_(420.00_x_297.00_MM)")
+          ((= paperChoice "A3D")
+           "ISO_full_bleed_A3_(297.00_x_420.00_MM)")
+          ((= paperChoice "A4N")
+           "ISO_full_bleed_A4_(297.00_x_210.00_MM)")
+          ((= paperChoice "A4D")
+           "ISO_full_bleed_A4_(210.00_x_297.00_MM)")
+        ))
+
       ;; Chon file PDF dau ra
       (setq outpdf
         (getfiled
@@ -82,7 +102,6 @@
           (setq folder (vl-filename-directory outpdf)
                 prefix (vl-filename-base outpdf)
                 printer "DWG To PDF.pc3"
-                media "ISO_full_bleed_A3_(420.00_x_297.00_MM)"
                 ctb "monochrome.ctb"
                 count 0
                 idx 0
@@ -199,8 +218,9 @@
                                 '(lambda ()
                                    (vla-SetWindowToPlot lay p1 p2)
                                    (vla-put-PlotType lay 4)
-                                   (vla-put-PlotRotation
-                                     lay (if (> w h) 0 1))
+                                   ;; Huong giay da duoc chon bang media.
+                                   ;; Khong tu xoay theo kich thuoc khung.
+                                   (vla-put-PlotRotation lay 0)
                                    (vla-PlotToFile plot pdfpath printer)
                                  )
                               )

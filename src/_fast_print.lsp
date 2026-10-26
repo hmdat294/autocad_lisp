@@ -92,7 +92,7 @@
       (setq outpdf
         (getfiled
           "Chon noi luu PDF nhieu trang"
-          (strcat (getvar "DWGPREFIX") "Banve.pdf")
+          (strcat (getenv "USERPROFILE") "\\Downloads\\Banve.pdf")
           "pdf"
           1))
 

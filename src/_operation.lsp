@@ -67,13 +67,13 @@
       (setq inspt (getpoint "\nChon vi tri chen text: "))
 
       ;; tạo text
-      (entmakex
-        (list
+      (entmakex 
+        (list 
           '(0 . "TEXT")
           (cons 10 inspt)
           (cons 40 h)
           (cons 1 str)
-          (cons 7 (getvar "TEXTSTYLE"))
+          (cons 7 "TIEUDE")
           '(72 . 0)
           '(73 . 0)
         )
